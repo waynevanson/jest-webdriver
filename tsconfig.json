@@ -1,0 +1,7 @@
+{
+  "compilerOptions": {
+    "esModuleInterop": true,
+    "types": ["webdriverio/async", "jest", "node"],
+    "skipDefaultLibCheck": true
+  }
+}
