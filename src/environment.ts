@@ -34,11 +34,11 @@ export default class WebdriverIOEnvironment extends NodeEnvironment {
     return super.getVmContext()
   }
 
-  async handleTestEvent(event, state) {
-    if (event.name === "test_start") {
-      // ...
-    }
-  }
+  // async handleTestEvent(event, state) {
+  //   if (event.name === "test_start") {
+  //     // ...
+  //   }
+  // }
 }
 
 module.exports = WebdriverIOEnvironment
