@@ -1,12 +1,9 @@
-import NodeEnvironment from "jest-environment-node"
-import {} from "jest-environment-jsdom"
-import {
-  JestEnvironment,
-  EnvironmentContext,
-} from "@jest/environment"
+import { EnvironmentContext } from "@jest/environment"
 import { Config } from "@jest/types"
+import {} from "jest-environment-jsdom"
+import NodeEnvironment from "jest-environment-node"
 
-class WebdriverIOEnvironment extends NodeEnvironment {
+export default class WebdriverIOEnvironment extends NodeEnvironment {
   constructor(
     public config: Config.ProjectConfig,
     context?: EnvironmentContext,
