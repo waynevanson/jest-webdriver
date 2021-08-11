@@ -1,7 +1,7 @@
 import { EnvironmentContext } from "@jest/environment"
 import { Config } from "@jest/types"
-import {} from "jest-environment-jsdom"
 import NodeEnvironment from "jest-environment-node"
+import * as VM from "vm"
 
 export default class WebdriverIOEnvironment extends NodeEnvironment {
   constructor(
@@ -16,9 +16,7 @@ export default class WebdriverIOEnvironment extends NodeEnvironment {
     }
   }
 
-  // get config
-  // create browser, attach to driver
-  async setup() {
+  async setup(): Promise<void> {
     await super.setup()
 
     // Will trigger if docblock contains @my-custom-pragma my-pragma-value
@@ -30,11 +28,11 @@ export default class WebdriverIOEnvironment extends NodeEnvironment {
     // }
   }
 
-  async teardown() {
+  async teardown(): Promise<void> {
     await super.teardown()
   }
 
-  getVmContext() {
+  getVmContext(): VM.Context | null {
     return super.getVmContext()
   }
 
