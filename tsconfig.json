@@ -1,7 +1,10 @@
 {
   "compilerOptions": {
+    "strict": true,
     "esModuleInterop": true,
-    "types": ["webdriverio/async", "jest", "node"],
-    "skipDefaultLibCheck": true
+    "module": "commonjs",
+    "target": "es6",
+    "moduleResolution": "node",
+    "types": ["webdriverio/async", "jest", "node"]
   }
 }
