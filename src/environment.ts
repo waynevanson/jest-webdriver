@@ -9,7 +9,11 @@ export default class WebdriverIOEnvironment extends NodeEnvironment {
     public context: EnvironmentContext,
   ) {
     super(config)
-    // get config from variables, error when no config is used.
+    if (typeof config.globals.webdriverio !== "object") {
+      throw new Error(
+        'Jest configuration cooked – Please provide Webdriver\'s configuration under "{ globals: { webdriverio: { ...<options> } } }"',
+      )
+    }
   }
 
   // get config
