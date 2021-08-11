@@ -1,7 +1,8 @@
+import type { RemoteOptions } from "webdriverio"
 declare module "@jest/types" {
   namespace Config {
     interface ConfigGlobals {
-      webdriverio: WebdriverIOConfigOptionsJest
+      webdriverio: WebdriverIOGlobalOptions
     }
   }
 }
@@ -9,13 +10,22 @@ declare module "@jest/types" {
 // Added so we can type check Jest types
 //
 // https://github.com/facebook/jest/issues/11640#issuecomment-893867514
+
 declare global {
   namespace NodeJS {
+    // eslint-disable-next-line
     interface Global {}
+    // eslint-disable-next-line
     interface InspectOptions {}
 
-    interface ConsoleConstructor
-      extends console.ConsoleConstructor {}
+    // eslint-disable-next-line
+    interface ConsoleConstructor extends console.ConsoleConstructor {}
+  }
+
+  interface ArrayConstructor {
+    isArray<T>(
+      value: T,
+    ): value is Extract<T, Array<unknown> | ReadonlyArray<unknown>>
   }
 }
 
@@ -40,8 +50,13 @@ export type WebdriverIOExcludedProperties =
   | "cucumberOpts"
   | "autoCompileOpts"
 
-export interface WebdriverIOConfigOptionsJest
-  extends Omit<
-    WebdriverIO.Config,
-    WebdriverIOExcludedProperties
-  > {}
+export type RemoteOptionsJest = Omit<
+  RemoteOptions,
+  WebdriverIOExcludedProperties
+>
+
+export type MultiRemoteOptionsJest = [RemoteOptionsJest, ...RemoteOptionsJest[]]
+
+// todo - add multiremote
+export type WebdriverIOGlobalOptions = RemoteOptionsJest
+// | MultiRemoteOptionsJest
