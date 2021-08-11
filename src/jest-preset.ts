@@ -1,4 +1,8 @@
-import { remote } from "webdriverio"
 import { Config } from "@jest/types"
+import * as path from "path"
 
-export default {} as Config.InitialOptions
+const testEnvironment = path.resolve(__dirname, "./environment.js")
+
+export const defaults: Pick<Config.InitialOptions, "testEnvironment"> = {
+  testEnvironment,
+}
