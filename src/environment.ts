@@ -6,7 +6,7 @@ import NodeEnvironment from "jest-environment-node"
 export default class WebdriverIOEnvironment extends NodeEnvironment {
   constructor(
     public config: Config.ProjectConfig,
-    context?: EnvironmentContext,
+    public context: EnvironmentContext,
   ) {
     super(config)
     // get config from variables, error when no config is used.
