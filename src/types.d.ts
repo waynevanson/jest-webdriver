@@ -6,6 +6,8 @@ declare module "@jest/types" {
   }
 }
 
+// Added so we can type check Jest types
+//
 // https://github.com/facebook/jest/issues/11640#issuecomment-893867514
 declare global {
   namespace NodeJS {
