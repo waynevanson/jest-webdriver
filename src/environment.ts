@@ -4,16 +4,22 @@ import NodeEnvironment from "jest-environment-node"
 import * as VM from "vm"
 import { remote } from "webdriverio"
 
+declare module "@jest/types/build/global" {
+  export interface Global {
+    remote: WebdriverIO.Browser
+  }
+}
+
 export default class WebdriverIOEnvironment extends NodeEnvironment {
-  // eslint-disable-next-line
-  // @ts-ignore
-  public remote: WebdriverIO.Browser
+  // @ts-expect-error undefinable in constructor`
+  private browser: WebdriverIO.Browser
 
   constructor(
     public config: Config.ProjectConfig,
-    public context: EnvironmentContext,
+    public environmentContext: EnvironmentContext,
   ) {
     super(config)
+
     if (typeof config.globals.webdriverio !== "object") {
       throw new Error(
         'Jest configuration cooked – Please provide Webdriver\'s configuration under "{ globals: { webdriverio: { ...<options> } } }"',
@@ -24,9 +30,9 @@ export default class WebdriverIOEnvironment extends NodeEnvironment {
   async setup(): Promise<void> {
     await super.setup()
 
-    this.remote = await remote(this.config.globals.webdriverio)
-    this.global.browser = this.remote
-    this.global.device = this.remote
+    this.browser = await remote(this.config.globals.webdriverio)
+    this.global.browser = this.browser
+    this.global.driver = this.browser
 
     // Will trigger if docblock contains @my-custom-pragma my-pragma-value
     // if (
@@ -38,7 +44,7 @@ export default class WebdriverIOEnvironment extends NodeEnvironment {
   }
 
   async teardown(): Promise<void> {
-    await this.remote.deleteSession()
+    await this.browser.deleteSession()
     await super.teardown()
   }
 
