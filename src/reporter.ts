@@ -6,8 +6,8 @@ import type {
   Test,
   TestResult,
 } from "@jest/reporters"
-import type { Config } from "@jest/types"
 import type { TestCaseResult } from "@jest/test-result"
+import type { Config } from "@jest/types"
 import type { WebdriverIOGlobalOptions } from "./types"
 
 export default class WebdriverIOReporter implements Reporter {
@@ -16,31 +16,32 @@ export default class WebdriverIOReporter implements Reporter {
     public options: WebdriverIOGlobalOptions,
   ) {}
 
-  // readonly onTestResult?: (
-  //   test: Test,
-  //   testResult: TestResult,
-  //   aggregatedResult: AggregatedResult,
-  // ) => Promise<void> | void
+  readonly onTestResult?: (
+    test: Test,
+    testResult: TestResult,
+    aggregatedResult: AggregatedResult,
+  ) => Promise<void> | void = async () => {}
 
-  // readonly onTestFileResult?: (
-  //   test: Test,
-  //   testResult: TestResult,
-  //   aggregatedResult: AggregatedResult,
-  // ) => Promise<void> | void
+  readonly onTestFileResult?: (
+    test: Test,
+    testResult: TestResult,
+    aggregatedResult: AggregatedResult,
+  ) => Promise<void> | void = async () => {}
 
-  // readonly onTestCaseResult?: (
-  //   test: Test,
-  //   testCaseResult: TestCaseResult,
-  // ) => Promise<void> | void
+  readonly onTestCaseResult?: (
+    test: Test,
+    testCaseResult: TestCaseResult,
+  ) => Promise<void> | void = async () => {}
 
   readonly onRunStart: (
     results: AggregatedResult,
     options: ReporterOnStartOptions,
   ) => Promise<void> | void = async () => {}
 
-  // readonly onTestStart?: (test: Test) => Promise<void> | void
+  readonly onTestStart?: (test: Test) => Promise<void> | void = async () => {}
 
-  // readonly onTestFileStart?: (test: Test) => Promise<void> | void
+  readonly onTestFileStart?: (test: Test) => Promise<void> | void =
+    async () => {}
 
   readonly onRunComplete: (
     contexts: Set<Context>,
