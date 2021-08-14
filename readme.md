@@ -1,20 +1,12 @@
-# webdriverio-jest
+# webdriver-jest
 
-A preset for jest to insert webdriverio.
+A slew of low level tools that integrate webdriver tools with jest.
 
-## how it works
+By default, it exports a Jest Environment that extends Jest's Node Environment.
 
-Once per suite (file), a browser instance is created and available as a global.
+# Webdriver
 
-Once per run, a reporter is generated.
-
-There is also a watc
-
-# todo
-
-separate into packages
-
-- webdriverio-jest (includes the preset)
-- webdriverio-jest-reporter
-- fixtures/\*
-  - these will be workspaces so we can download all modules into a single node modules for speeeeeed
+| Lifecycle             | Actions                           |
+| :-------------------- | :-------------------------------- |
+| onRun{Start,End}      | Start/Stop the webdriver (server) |
+| onTestFile{Start,End} | Create/Destroy a session (client) |
