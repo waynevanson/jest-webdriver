@@ -1,0 +1,9 @@
+{
+  "name": "@webdriver-jest/webdriverio",
+  "version": "0.0.0",
+  "description": "webdriverio integration with jest",
+  "main": "dist/index.js",
+  "author": "Wayne Van Son",
+  "license": "MIT",
+  "private": false
+}
