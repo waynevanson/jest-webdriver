@@ -1,0 +1,5 @@
+{
+  "main": "../dist/multiremote.cjs",
+  "module": "../dist/multiremote.js",
+  "types": "../dist/multiremote.d.ts"
+}
