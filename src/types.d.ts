@@ -29,6 +29,8 @@ declare global {
   }
 }
 
+type RequireKeys<T, K extends keyof T> = Required<Pick<T, K>> & Omit<T, K>
+
 export type WebdriverIOExcludedProperties =
   | "runner"
   | "specs"
@@ -50,9 +52,9 @@ export type WebdriverIOExcludedProperties =
   | "cucumberOpts"
   | "autoCompileOpts"
 
-export type RemoteOptionsJest = Omit<
-  RemoteOptions,
-  WebdriverIOExcludedProperties
+export type RemoteOptionsJest = RequireKeys<
+  Omit<RemoteOptions, WebdriverIOExcludedProperties>,
+  "capabilities"
 >
 
 export type MultiRemoteOptionsJest = [RemoteOptionsJest, ...RemoteOptionsJest[]]
