@@ -1,4 +1,5 @@
 import type { RemoteOptions } from "webdriverio"
+
 declare module "@jest/types" {
   namespace Config {
     interface ConfigGlobals {
