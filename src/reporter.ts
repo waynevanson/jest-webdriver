@@ -6,7 +6,6 @@ import type {
   Test,
   TestResult,
 } from "@jest/reporters"
-import "webdriverio/async"
 import type { Config } from "@jest/types"
 import type { TestCaseResult } from "@jest/test-result"
 import type { WebdriverIOGlobalOptions } from "./types"
