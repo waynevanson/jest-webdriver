@@ -3,6 +3,7 @@
   "version": "0.0.0",
   "description": "webdriverio integration with jest",
   "main": "dist/index.js",
+  "type": "module",
   "author": "Wayne Van Son",
   "license": "MIT",
   "private": false,

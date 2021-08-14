@@ -1,5 +1,4 @@
 import type { RemoteOptions } from "webdriverio"
-import "../../../common/src"
 import type { RequireKeys } from "../../../common/src"
 
 declare module "@jest/types" {
