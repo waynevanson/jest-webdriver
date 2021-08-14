@@ -2,16 +2,16 @@ import { EnvironmentContext } from "@jest/environment"
 import { Config } from "@jest/types"
 import NodeEnvironment from "jest-environment-node"
 import * as VM from "vm"
-import { remote } from "webdriverio"
+import { remote, Browser } from "webdriverio"
 
 declare module "@jest/types/build/global" {
   export interface Global {
-    remote: WebdriverIO.Browser
+    remote: Browser<"async">
   }
 }
 
 export default class WebdriverIOEnvironment extends NodeEnvironment {
-  // @ts-expect-error undefinable in constructor`
+  // @ts-expect-error undefinable in constructor
   private browser: WebdriverIO.Browser
 
   constructor(

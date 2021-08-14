@@ -1,4 +1,6 @@
 import type { RemoteOptions } from "webdriverio"
+import "../../../common/src"
+import type { RequireKeys } from "../../../common/src"
 
 declare module "@jest/types" {
   namespace Config {
@@ -7,30 +9,6 @@ declare module "@jest/types" {
     }
   }
 }
-
-// Added so we can type check Jest types
-//
-// https://github.com/facebook/jest/issues/11640#issuecomment-893867514
-
-declare global {
-  namespace NodeJS {
-    // eslint-disable-next-line
-    interface Global {}
-    // eslint-disable-next-line
-    interface InspectOptions {}
-
-    // eslint-disable-next-line
-    interface ConsoleConstructor extends console.ConsoleConstructor {}
-  }
-
-  interface ArrayConstructor {
-    isArray<T>(
-      value: T,
-    ): value is Extract<T, Array<unknown> | ReadonlyArray<unknown>>
-  }
-}
-
-type RequireKeys<T, K extends keyof T> = Required<Pick<T, K>> & Omit<T, K>
 
 export type WebdriverIOExcludedProperties =
   | "runner"
@@ -58,8 +36,4 @@ export type RemoteOptionsJest = RequireKeys<
   "capabilities"
 >
 
-export type MultiRemoteOptionsJest = [RemoteOptionsJest, ...RemoteOptionsJest[]]
-
-// todo - add multiremote
 export type WebdriverIOGlobalOptions = RemoteOptionsJest
-// | MultiRemoteOptionsJest

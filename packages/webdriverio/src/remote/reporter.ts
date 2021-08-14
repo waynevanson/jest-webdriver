@@ -8,7 +8,7 @@ import type {
 } from "@jest/reporters"
 import type { TestCaseResult } from "@jest/test-result"
 import type { Config } from "@jest/types"
-import type { WebdriverIOGlobalOptions } from "./types"
+import type { WebdriverIOGlobalOptions } from "../common/types"
 
 export default class WebdriverIOReporter implements Reporter {
   constructor(
