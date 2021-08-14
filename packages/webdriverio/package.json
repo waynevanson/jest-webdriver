@@ -6,6 +6,9 @@
   "author": "Wayne Van Son",
   "license": "MIT",
   "private": false,
+  "scripts": {
+    "build": "tsc -p ./configuration/tsconfig.es6.json"
+  },
   "peerDependencies": {
     "webdriverio": "^7.9.1",
     "@types/jest": "^27.0.1",

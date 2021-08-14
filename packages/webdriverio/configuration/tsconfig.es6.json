@@ -5,7 +5,7 @@
     "declaration": true,
     "moduleResolution": "node",
     "target": "es6",
-    "module": "commonjs"
+    "module": "es6"
   },
   "include": ["../src"]
 }
