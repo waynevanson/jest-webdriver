@@ -3,6 +3,9 @@
   "version": "0.0.0",
   "description": "webdriver integration for jest",
   "main": "dist/index.js",
+  "scripts": {
+    "build": "echo"
+  },
   "author": "Wayne Van Son",
   "license": "MIT",
   "private": false

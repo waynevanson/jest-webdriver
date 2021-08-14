@@ -4,6 +4,9 @@
   "description": "chromedriver integration for jest",
   "main": "dist/index.js",
   "author": "Wayne Van Son",
+  "scripts": {
+    "build": "echo"
+  },
   "license": "MIT",
   "private": false
 }
