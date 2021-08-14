@@ -11,9 +11,7 @@ const configuration: InitialOptionsTsJest = {
     webdriverio: {
       logLevel: "silent",
       capabilities: {
-        // @ts-ignore this works
         browserName: "chrome",
-        // @ts-ignore this works
         "goog:chromeOptions": { headless: true },
       },
       services: [`chromedriver`],
