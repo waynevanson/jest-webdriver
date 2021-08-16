@@ -2,7 +2,7 @@ import { EnvironmentContext } from "@jest/environment"
 import { Config } from "@jest/types"
 import NodeEnvironment from "jest-environment-node"
 import * as VM from "vm"
-import { remote, Browser } from "webdriverio"
+import { Browser, remote } from "webdriverio"
 
 declare module "@jest/types/build/global" {
   export interface Global {
