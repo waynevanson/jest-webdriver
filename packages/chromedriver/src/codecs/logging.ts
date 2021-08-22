@@ -157,7 +157,7 @@ export const log = c.make(d.union(...logs), {
     recode(...logs),
     O.fold(
       () => [] as ReadonlyArray<string>,
-      (a) => a,
+      (a) => a as ReadonlyArray<string>,
     ),
   ),
 })
