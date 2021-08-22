@@ -8,5 +8,18 @@
   },
   "author": "Wayne Van Son",
   "license": "MIT",
-  "private": false
+  "private": false,
+  "devDependencies": {
+    "@types/jest": "^27.0.1",
+    "@types/node": "^16.6.1",
+    "jest": "^27.0.6",
+    "ts-jest": "^27.0.5",
+    "ts-node": "^10.2.0",
+    "typescript": "^4.3.5",
+    "webdriver": "^7.10.0"
+  },
+  "dependencies": {
+    "fp-ts": "^2.11.1",
+    "monocle-ts": "^2.3.11"
+  }
 }
