@@ -14,6 +14,8 @@ const config: Config.InitialOptions = {
       displayName: "webdriver",
       ...defaults,
       testEnvironment: path.resolve(__dirname, "./src/index.ts"),
+      testMatch: ["<rootDir>/tests/webdriver.spec.ts"],
+      globals: { "ts-jest": {}, webdriver: { options: { capabilities: {} } } },
     },
   ],
 }
