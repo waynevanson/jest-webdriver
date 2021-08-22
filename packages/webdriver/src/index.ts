@@ -42,7 +42,7 @@ export class WebdriverEnvironment extends NodeEnvironment {
     await super.teardown()
   }
 
-  async getVmContext(): Promise<Context | null> {
+  getVmContext(): Context | null {
     return super.getVmContext()
   }
 }
