@@ -36,3 +36,4 @@ export type RequireKeys<T, K extends keyof T> = Required<Pick<T, K>> &
   Omit<T, K>
 
 export * as optional from "./optional"
+export * as jest_config from "./jest-config"
