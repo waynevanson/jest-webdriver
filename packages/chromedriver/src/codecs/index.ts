@@ -45,4 +45,12 @@ export const driver_options = c.make(
   },
 )
 
-export const options = pipe(driver_options, c.intersect(log))
+export const options = c.make(pipe(driver_options, c.intersect(log)), {
+  encode: ({ adb_port, allowed_ips, port, url_base, ...rest }) =>
+    pipe(
+      log.encode(rest),
+      A.alt(() =>
+        driver_options.encode({ adb_port, allowed_ips, port, url_base }),
+      ),
+    ),
+})
