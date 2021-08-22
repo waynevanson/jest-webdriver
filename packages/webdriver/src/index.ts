@@ -34,11 +34,11 @@ export class WebdriverEnvironment extends NodeEnvironment {
 
   async setup(): Promise<void> {
     await super.setup()
-    this._client = await Webdriver.newSession(this.options)
+    // this._client = await Webdriver.newSession(this.options)
   }
 
   async teardown(): Promise<void> {
-    await this._client?.deleteSession()
+    // await this._client?.deleteSession()
     await super.teardown()
   }
 
