@@ -46,3 +46,5 @@ export class WebdriverEnvironment extends NodeEnvironment {
     return super.getVmContext()
   }
 }
+
+export default WebdriverEnvironment
