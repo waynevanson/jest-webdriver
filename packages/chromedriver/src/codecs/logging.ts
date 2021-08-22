@@ -125,7 +125,7 @@ export const log_level_silent = c.make(
 
 export const enable_chrome_logs = c.make(
   d.struct({ enable_chrome_logs: _true }),
-  { encode: () => [`--enable-chrome-logs`] },
+  { encode: () => [`--enable-chrome-logs`] as ReadonlyArray<string> },
 )
 
 export const empty = c.make(d.struct({}), {
