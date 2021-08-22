@@ -8,6 +8,7 @@ const config: Config.InitialOptions = {
       displayName: "unit",
       ...defaults,
       testEnvironment: "node",
+      testMatch: ["<rootDir>/tests/unit.spec.ts"],
     },
     {
       displayName: "webdriver",
