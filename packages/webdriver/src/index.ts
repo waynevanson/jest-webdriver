@@ -35,6 +35,7 @@ export class WebdriverEnvironment extends NodeEnvironment {
   async setup(): Promise<void> {
     await super.setup()
     // this._client = await Webdriver.newSession(this.options)
+    this.global.client = "browser"
   }
 
   async teardown(): Promise<void> {
