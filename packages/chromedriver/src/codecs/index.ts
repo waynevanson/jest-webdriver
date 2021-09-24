@@ -4,18 +4,16 @@ import * as c from "io-ts/Codec"
 import * as d from "io-ts/Decoder"
 import * as e from "io-ts/Encoder"
 export * from "./logging"
-import { log, _false, _true } from "./logging"
+import { log, falsey, truthy } from "./logging"
 
 export const driver_options = c.make(
-  pipe(
-    d.partial({
-      port: d.number,
-      adb_port: d.number,
-      url_base: d.string,
-      // @todo - non-empty-array
-      allowed_ips: d.array(d.string),
-    }),
-  ),
+  d.partial({
+    port: d.number,
+    adb_port: d.number,
+    url_base: d.string,
+    // @todo - non-empty-array
+    allowed_ips: d.array(d.string),
+  }),
   {
     encode: ({ adb_port, allowed_ips, port, url_base }) =>
       A.compact([

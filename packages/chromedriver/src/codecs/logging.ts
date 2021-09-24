@@ -5,12 +5,12 @@ import * as d from "io-ts/Decoder"
 
 export type Args = ReadonlyArray<string>
 
-export const _true = pipe(
+export const truthy = pipe(
   c.boolean,
   c.refine((a): a is true => a, "true"),
 )
 
-export const _false = pipe(
+export const falsey = pipe(
   c.boolean,
   c.refine((a): a is false => !a, "false"),
 )
@@ -22,12 +22,12 @@ export const fromNullableBoolean = <A extends boolean | null | undefined>(
 export const loggable_loud_options = pipe(
   c.make(
     d.partial({
-      replayable: _true,
-      readable_timestamp: _true,
-      append_log: _true,
+      replayable: truthy,
+      readable_timestamp: truthy,
+      append_log: truthy,
       log_path: c.string,
-      enable_chrome_logs: _false,
-      silent: _false,
+      enable_chrome_logs: falsey,
+      silent: falsey,
     }),
     // convert each key into a value
     {
@@ -61,11 +61,11 @@ export const loggable_loud_options = pipe(
 
 export const loggable_silent_options = c.make(
   d.partial({
-    replayable: _false,
-    readable_timestamp: _false,
-    append_log: _false,
-    enable_chrome_logs: _false,
-    verbose: _false,
+    replayable: falsey,
+    readable_timestamp: falsey,
+    append_log: falsey,
+    enable_chrome_logs: falsey,
+    verbose: falsey,
   }),
   { encode: () => [] as ReadonlyArray<string> },
 )
@@ -76,7 +76,7 @@ export const log_level_between = c.make(
       log_level: d.literal("DEBUG", "INFO", "WARNING", "SEVERE"),
     }),
     d.intersect(loggable_loud_options),
-    d.intersect(d.partial({ verbose: _false, silent: _false })),
+    d.intersect(d.partial({ verbose: falsey, silent: falsey })),
   ),
   {
     encode: ({ log_level, ...rest }) =>
@@ -90,7 +90,7 @@ export const log_level_between = c.make(
 export const log_level_verbose = c.make(
   pipe(
     d.union(
-      d.struct({ verbose: _true }),
+      d.struct({ verbose: truthy }),
       d.struct({ log_level: d.literal("ALL") }),
     ),
     d.intersect(loggable_loud_options),
@@ -108,7 +108,7 @@ export const log_level_verbose = c.make(
 export const log_level_silent = c.make(
   pipe(
     d.union(
-      d.struct({ silent: _true }),
+      d.struct({ silent: truthy }),
       d.struct({ log_level: d.literal("OFF") }),
     ),
     d.intersect(loggable_silent_options),
@@ -124,7 +124,7 @@ export const log_level_silent = c.make(
 )
 
 export const enable_chrome_logs = c.make(
-  d.struct({ enable_chrome_logs: _true }),
+  d.struct({ enable_chrome_logs: truthy }),
   { encode: () => [`--enable-chrome-logs`] as ReadonlyArray<string> },
 )
 
