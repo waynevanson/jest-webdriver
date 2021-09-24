@@ -4,18 +4,38 @@ import * as path from "path"
 
 const config: Config.InitialOptions = {
   projects: [
-    {
-      displayName: "unit",
-      ...defaults,
-      testEnvironment: "node",
-      testMatch: ["<rootDir>/tests/unit.spec.ts"],
-    },
+    // {
+    //   displayName: "unit",
+    //   ...defaults,
+    //   testEnvironment: "node",
+    //   testMatch: ["<rootDir>/tests/unit.spec.ts"],
+    // },
     {
       displayName: "webdriver",
       ...defaults,
-      testEnvironment: path.resolve(__dirname, "./src/index.ts"),
       testMatch: ["<rootDir>/tests/webdriver.spec.ts"],
-      globals: { "ts-jest": {}, webdriver: { options: { capabilities: {} } } },
+      globals: {
+        "ts-jest": {},
+        webdriver: {
+          options: {
+            capabilities: {
+              browserName: "chrome",
+              "goog:chromeOptions": {
+                args: ["headless"],
+              },
+            },
+            logLevel: "silent",
+            port: 4098,
+          },
+        },
+        chromedriver: {
+          options: {
+            port: 4098,
+            headless: true,
+          },
+        },
+      },
+      testEnvironment: "<rootDir>/src/environment.ts",
       globalSetup: path.resolve(__dirname, "./jest/setup.ts"),
       globalTeardown: path.resolve(__dirname, "./jest/teardown.ts"),
     },
