@@ -1,6 +1,6 @@
 import { Config } from "@jest/types"
-import { defaults } from "ts-jest/presets"
 import * as path from "path"
+import { defaults } from "ts-jest/presets"
 
 const config: Config.InitialOptions = {
   projects: [
@@ -14,6 +14,7 @@ const config: Config.InitialOptions = {
       displayName: "webdriver",
       ...defaults,
       testMatch: ["<rootDir>/tests/webdriver.spec.ts"],
+      rootDir: path.resolve(__dirname, "../../"),
       globals: {
         "ts-jest": {},
         webdriver: {
@@ -36,8 +37,8 @@ const config: Config.InitialOptions = {
         },
       },
       testEnvironment: "<rootDir>/src/environment.ts",
-      globalSetup: path.resolve(__dirname, "./jest/setup.ts"),
-      globalTeardown: path.resolve(__dirname, "./jest/teardown.ts"),
+      globalSetup: path.resolve(__dirname, "./setup.ts"),
+      globalTeardown: path.resolve(__dirname, "./teardown.ts"),
     },
   ],
 }

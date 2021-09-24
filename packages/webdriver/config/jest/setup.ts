@@ -1,4 +1,4 @@
-import { setup } from "../../chromedriver/src"
+import { setup } from "../../../chromedriver/src"
 import { Config } from "@jest/types"
 
 // @todo –  use the global config option to get the options
