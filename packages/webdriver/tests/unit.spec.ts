@@ -1,7 +1,7 @@
 import { Config } from "@jest/types"
 import { pipe } from "fp-ts/lib/function"
 import { optional as o, jest_config as jc } from "../../common/src"
-import { WebdriverEnvironment } from "../src/index"
+import { WebdriverEnvironment } from "../src/environment"
 
 const capabilties = pipe(
   o.id<Config.ProjectConfig>(),
