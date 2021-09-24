@@ -1,8 +1,10 @@
-import { default as Webdriver } from "webdriver"
-
 // each session should have one client
 describe("webdriver", () => {
   it("contains a global session", () => {
-    expect(client).toBeDefined()
+    expect(session).toBeDefined()
+  })
+
+  it("should have a valid config object", () => {
+    expect(webdriver).toBeDefined()
   })
 })
