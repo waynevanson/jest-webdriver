@@ -10,11 +10,12 @@
   "author": "Wayne Van Son",
   "license": "MIT",
   "devDependencies": {
-    "@types/jest": "^27.0.1",
+    "@jest/types": "^27.1.1",
+    "@types/jest": "^27.0.2",
     "@types/node": "^16.6.1",
     "jest": "^27.0.6",
     "ts-jest": "^27.0.5",
-    "ts-node": "^10.2.0",
+    "ts-node": "^10.2.1",
     "typescript": "^4.3.5",
     "webdriver": "^7.10.0"
   },

@@ -1222,6 +1222,8 @@ __metadata:
   resolution: "@webdriver-jest/common@workspace:packages/common"
   dependencies:
     "@types/node": ^16.6.1
+    fp-ts: ^2.11.3
+    monocle-ts: ^2.3.11
     typescript: ^4.3.5
   languageName: unknown
   linkType: soft
@@ -1236,8 +1238,9 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@webdriver-jest/monorepo@workspace:."
   dependencies:
+    "@types/jest": ^27.0.2
     "@types/node": ^16.10.0
-    jest: ^27.2.1
+    jest: ^27.2.2
     ts-jest: ^27.0.5
     ts-node: ^10.2.1
     typescript: ^4.4.3
@@ -1248,13 +1251,14 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@webdriver-jest/webdriver@workspace:packages/webdriver"
   dependencies:
-    "@types/jest": ^27.0.1
+    "@jest/types": ^27.1.1
+    "@types/jest": ^27.0.2
     "@types/node": ^16.6.1
     fp-ts: ^2.11.1
     jest: ^27.0.6
     monocle-ts: ^2.3.11
     ts-jest: ^27.0.5
-    ts-node: ^10.2.0
+    ts-node: ^10.2.1
     typescript: ^4.3.5
     webdriver: ^7.10.0
   languageName: unknown
@@ -2387,6 +2391,7 @@ __metadata:
   dependencies:
     "@types/jest": ^27.0.2
     "@types/node": ^16.10.1
+    fp-ts: ^2.11.3
     jest: ^27.2.2
     ts-jest: ^27.0.5
     ts-node: ^10.2.1
@@ -2394,7 +2399,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"fp-ts@npm:^2.11.1":
+"fp-ts@npm:^2.11.1, fp-ts@npm:^2.11.3":
   version: 2.11.3
   resolution: "fp-ts@npm:2.11.3"
   checksum: 0c06bd9e0279671ecc5ab28f2d8992313c37bf13aa5a6595de2ef06df9304e9fcd6d59c65b083bc9c2e1c190bb6cae711b680b9b207b3e9fcdffa1dbfda12dc0
@@ -3835,7 +3840,7 @@ fsevents@^2.3.2:
   languageName: node
   linkType: hard
 
-"jest@npm:^27.0.6, jest@npm:^27.2.1":
+"jest@npm:^27.0.6":
   version: 27.2.1
   resolution: "jest@npm:27.2.1"
   dependencies:
@@ -5235,7 +5240,7 @@ resolve@^1.20.0:
   languageName: node
   linkType: hard
 
-"ts-node@npm:^10.2.0, ts-node@npm:^10.2.1":
+"ts-node@npm:^10.2.1":
   version: 10.2.1
   resolution: "ts-node@npm:10.2.1"
   dependencies:
