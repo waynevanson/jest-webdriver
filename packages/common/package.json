@@ -6,7 +6,6 @@
   "types": "./src/index.d.ts",
   "author": "Wayne Van Son",
   "license": "MIT",
-  "private": false,
   "scripts": {
     "build": "echo"
   },

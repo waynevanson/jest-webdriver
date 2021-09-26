@@ -9,7 +9,6 @@
   },
   "author": "Wayne Van Son",
   "license": "MIT",
-  "private": false,
   "devDependencies": {
     "@types/jest": "^27.0.1",
     "@types/node": "^16.6.1",

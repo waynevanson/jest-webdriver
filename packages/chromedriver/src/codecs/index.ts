@@ -1,13 +1,7 @@
-import { option as O, readonlyArray as A, record as RC } from "fp-ts"
 import { pipe } from "fp-ts/lib/function"
-import * as c from "io-ts/Codec"
-import * as d from "io-ts/Decoder"
-import * as e from "io-ts/Encoder"
 import { kebabKeys } from "../kebab-case"
-
 import * as cc from "./codec"
 import * as dd from "./decoder"
-import * as ee from "./encoder"
 import { logging } from "./logging"
 
 export const driverOptions = pipe(
