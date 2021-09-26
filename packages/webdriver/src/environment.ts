@@ -1,8 +1,8 @@
 import type { Config } from "@jest/types"
 import type { Options } from "@wdio/types"
-import { default as NodeEnvironment } from "jest-environment-node"
+import NodeEnvironment from "jest-environment-node"
 import { Context } from "vm"
-import { default as Webdriver } from "webdriver"
+import Webdriver from "webdriver"
 
 declare module "@jest/types/build/config" {
   export interface ConfigGlobals {
