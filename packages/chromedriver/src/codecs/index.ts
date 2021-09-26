@@ -21,4 +21,4 @@ export const driverOptions = pipe(
   cc.fromPartial,
 )
 
-export const all = pipe(driverOptions, cc.intersect(logging))
+export const options = pipe(driverOptions, cc.intersect(logging))
