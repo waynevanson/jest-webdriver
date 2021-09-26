@@ -1177,7 +1177,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@wdio/types@npm:7.13.0":
+"@wdio/types@npm:7.13.0, @wdio/types@npm:^7.13.0":
   version: 7.13.0
   resolution: "@wdio/types@npm:7.13.0"
   dependencies:
@@ -1254,8 +1254,10 @@ __metadata:
     "@jest/types": ^27.1.1
     "@types/jest": ^27.0.2
     "@types/node": ^16.6.1
+    "@wdio/types": ^7.13.0
     fp-ts: ^2.11.1
     jest: ^27.0.6
+    jest-environment-node: ^27.2.2
     monocle-ts: ^2.3.11
     ts-jest: ^27.0.5
     ts-node: ^10.2.1
