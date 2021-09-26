@@ -4,10 +4,12 @@ import NodeEnvironment from "jest-environment-node"
 import { Context } from "vm"
 import Webdriver from "webdriver"
 
-declare module "@jest/types/build/config" {
-  export interface ConfigGlobals {
-    readonly webdriver: {
-      options: Options.WebDriver
+declare module "@jest/types" {
+  namespace Config {
+    interface ConfigGlobals {
+      readonly webdriver: {
+        options: Options.WebDriver
+      }
     }
   }
 }
