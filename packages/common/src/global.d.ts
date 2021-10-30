@@ -17,8 +17,8 @@ declare global {
   // strictly typed isArray
   interface ArrayConstructor {
     isArray<T>(
-      value: T,
-    ): value is Extract<T, Array<unknown> | ReadonlyArray<unknown>>
+      value: T
+    ): value is Extract<T, Array<unknown> | ReadonlyArray<unknown>>;
   }
 
   interface ObjectConstructor {
@@ -28,12 +28,9 @@ declare global {
       ? U extends any
         ? (r: U) => void extends (r: infer I) => void ? I : never
         : never
-      : never
+      : never;
   }
 }
 
 export type RequireKeys<T, K extends keyof T> = Required<Pick<T, K>> &
-  Omit<T, K>
-
-export * as optional from "./optional"
-export * as jest_config from "./jest-config"
+  Omit<T, K>;
