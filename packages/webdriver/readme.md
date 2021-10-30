@@ -36,3 +36,9 @@ Ideally, it seems good practice to have one session per test file.
 Tests are not run concurrently, meaning they're run one by one in a file. Jest will still run multiple files at once, which we can allow.
 
 Access the session via `window.client` or `import { client } from "webdriver-jest/globals"`.
+
+### FAQ
+
+#### Why use `TestEnvironment` ?
+
+We need access to the following during setup and teardown, as well as letting variables be available during the test.
