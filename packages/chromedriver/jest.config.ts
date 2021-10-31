@@ -1,7 +1,7 @@
 import { Config } from "@jest/types"
 
 const config: Config.InitialProjectOptions = {
-  name: "webdriver",
+  name: "chromedriver",
 }
 
 export default config
