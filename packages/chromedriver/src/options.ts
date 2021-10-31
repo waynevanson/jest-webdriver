@@ -11,12 +11,10 @@ export const asString: d.Decoder<string, string> = d.string
 export function fromPartialNullable<K extends string>(property: K) {
   return <A>(
     decoder: d.Decoder<A, A>
-  ): d.Decoder<Partial<Record<K, A>>, NonNullable<A>> =>
+  ): d.Decoder<Partial<Record<K, A>>, O.Option<A>> =>
     pipe(
       d.fromPartial({ [property]: decoder }),
-      d.map(O.fromNullableK((partial) => partial[property])),
-      d.refine(O.isSome, "Some"),
-      d.map((a) => a.value)
+      d.map(O.fromNullableK((partial) => partial[property]))
     )
 }
 
@@ -43,7 +41,7 @@ const fromPartialFlag = <K extends string>(property: K) =>
 export const port = pipe(
   asNumber,
   fromPartialNullable("port"),
-  d.map((port) => `--port="${port}"`)
+  d.map(O.map((port) => `--port="${port}"`))
 )
 
 // export const adbPort = pipe(

@@ -1,11 +1,15 @@
-import { either as E } from "fp-ts"
+import { either as E, option as O } from "fp-ts"
 import * as options from "./options"
 
 describe("port", () => {
-  it("should return a port", () => {
+  it('should return --port="<number>" when given a port', () => {
     expect(options.port.decode({ port: 1234 })).toMatchObject(
-      E.right(`--port="1234"`)
+      E.right(O.some(`--port="1234"`))
     )
+  })
+
+  it("should return None when there is no port", () => {
+    expect(options.port.decode({})).toMatchObject(E.right(O.none))
   })
 })
 
