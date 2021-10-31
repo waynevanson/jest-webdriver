@@ -1,4 +1,4 @@
-import { either as E, option as O } from "fp-ts"
+import { either as E } from "fp-ts"
 import * as options from "./options"
 
 describe("port", () => {
@@ -8,18 +8,42 @@ describe("port", () => {
   })
 })
 
-describe("logs", () => {
-  it("should return a log", () => {
-    const result = options.logging.decode({ silent: true })
-    expect(result).toMatchObject(E.right(`--silent`))
+describe("logging", () => {
+  describe("silent", () => {
+    it("should return --silent when given silent", () => {
+      expect(options.logging.decode({ silent: true })).toMatchObject(
+        E.right(`--silent`)
+      )
+    })
+
+    it("should return --verbose when given verbose but silent as false", () => {
+      expect(options.logging.decode({ silent: true, verbose: false }))
+    })
+
+    it("should emit a type error when given a false only value", () => {
+      //@ts-expect-error
+      expect(options.logging.decode({ verbose: false }))
+    })
   })
 
-  it("should return a log", () => {
-    const result = options.logging.decode({ verbose: true })
-    expect(result).toMatchObject(E.right(`--verbose`))
+  describe("verbose", () => {
+    it("should return --verbose when given verbose", () => {
+      expect(options.logging.decode({ verbose: true })).toMatchObject(
+        E.right(`--verbose`)
+      )
+    })
+
+    it("should return --verbose when given verbose but silent as false", () => {
+      expect(options.logging.decode({ silent: false, verbose: true }))
+    })
+
+    it("should emit a type error when given a false only value", () => {
+      //@ts-expect-error
+      expect(options.logging.decode({ silent: false }))
+    })
   })
 
-  it("should receive a type error", () => {
+  it("should emit a type error when given more than one true property", () => {
     //@ts-expect-error
     options.logging.decode({ silent: true, verbose: true })
   })
