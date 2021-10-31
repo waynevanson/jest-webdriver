@@ -44,11 +44,11 @@ export const port = pipe(
   d.map(O.map((port) => `--port="${port}"`))
 )
 
-// export const adbPort = pipe(
-//   asNumber,
-//   fromPartialNullable("port"),
-//   d.map(O.map((adbPort) => `--adb-port="${adbPort}"`))
-// )
+export const adbPort = pipe(
+  asNumber,
+  fromPartialNullable("adbport"),
+  d.map(O.map((adbPort) => `--adb-port="${adbPort}"`))
+)
 
 // export const logPath = pipe(
 //   asString,

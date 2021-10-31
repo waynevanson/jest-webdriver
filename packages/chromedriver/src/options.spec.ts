@@ -13,6 +13,18 @@ describe("port", () => {
   })
 })
 
+describe("abdPort", () => {
+  it('should return --adb-port="<number>" when given an adb port', () => {
+    expect(options.adbPort.decode({ adbport: 1234 })).toMatchObject(
+      E.right(O.some(`--adb-port="1234"`))
+    )
+  })
+
+  it("should return None when there is no port", () => {
+    expect(options.port.decode({})).toMatchObject(E.right(O.none))
+  })
+})
+
 describe("logging", () => {
   describe("silent", () => {
     it("should return --silent when given silent", () => {
