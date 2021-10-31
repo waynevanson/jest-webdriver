@@ -8,15 +8,15 @@ describe("port", () => {
   })
 })
 
-// describe("logs", () => {
-//   it("should return a log", () => {
-//     const result = options.logging.decode({ silent: true })
-//     expect(result).toMatchObject(E.right(`--silent`))
-//   })
+describe("logs", () => {
+  it("should return a log", () => {
+    const result = options.logging.decode({ silent: true })
+    expect(result).toMatchObject(E.right(`--silent`))
+  })
 
-//   it("should return nothing", () => {
-//     //@ts-expect-error
-//     const result = options.logging.decode({ silent: true, verbose: true })
-//     expect(result).toMatchObject(E.right(O.none))
-//   })
-// })
+  it("should receive a type error", () => {
+    //@ts-expect-error
+    const result = options.logging.decode({ silent: true, verbose: true })
+    // expect(result).toMatchObject(E.right(O.none))
+  })
+})
