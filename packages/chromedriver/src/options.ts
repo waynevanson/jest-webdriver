@@ -23,19 +23,6 @@ export function fromPartialNullable<K extends string>(property: K) {
 const fromPartialFlag = <K extends string>(property: K) =>
   fromPartialNullable(property)(asTrue)
 
-export const silent: d.Decoder<Partial<Record<"silent", true>>, string> = pipe(
-  fromPartialFlag("silent"),
-  d.map(() => "--silent")
-)
-
-// export const verbose: d.Decoder<
-//   Partial<Record<"verbose", true>>,
-//   string
-// > = pipe(
-//   fromPartialFlag("verbose"),
-//   d.map(() => "--verbose")
-// )
-
 // export const logLevel: d.Decoder<
 //   Record<"logLevel", LogLevel>,
 //   O.Option<string>
@@ -119,7 +106,12 @@ export const port = pipe(
 //   )
 // )
 
-export const logging = d.union(silent)
+export const logging = d.union(
+  pipe(
+    d.fromStruct({ silent: d.id<true>() }),
+    d.map(() => `--silent`)
+  )
+)
 
 // export const options = pipe(
 //   logging,
