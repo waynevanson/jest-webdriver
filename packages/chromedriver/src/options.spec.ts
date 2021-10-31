@@ -16,7 +16,6 @@ describe("logs", () => {
 
   it("should receive a type error", () => {
     //@ts-expect-error
-    const result = options.logging.decode({ silent: true, verbose: true })
-    // expect(result).toMatchObject(E.right(O.none))
+    options.logging.decode({ silent: true, verbose: true })
   })
 })
