@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "main": "index.js",
   "license": "MIT",
+  "scripts": {
+    "build:es6": "tsc -p tsconfig.es6.json"
+  },
   "devDependencies": {
     "@types/chromedriver": "^81.0.0",
     "@types/node": "^16.11.6",

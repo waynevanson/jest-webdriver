@@ -1,0 +1,7 @@
+{
+  "extends": "../../tsconfig.es6.json",
+  "compilerOptions": {
+    "rootDir": "es6",
+    "outDir": "dist/es6"
+  }
+}
