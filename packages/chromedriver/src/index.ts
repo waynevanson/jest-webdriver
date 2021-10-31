@@ -4,7 +4,7 @@ import { either as E } from "fp-ts"
 import { ChromeDriverOptions, decoder } from "./options"
 import * as d from "io-ts/Decoder"
 
-export function start(
+export async function start(
   chromeDriverOptions: ChromeDriverOptions
 ): Promise<ChildProcess> {
   const parsed = decoder.decode(chromeDriverOptions)
@@ -12,7 +12,8 @@ export function start(
   if (E.isLeft(parsed)) {
     throw new Error(d.draw(parsed.left))
   } else {
-    return cd.start(parsed.right, true)
+    console.log(parsed)
+    return await cd.start(parsed.right, true)
   }
 }
 

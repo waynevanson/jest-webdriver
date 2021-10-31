@@ -1,7 +1,8 @@
 import { Config } from "@jest/types"
+import { defaults } from "ts-jest/presets"
 
 const config: Config.InitialProjectOptions = {
-  name: "chromedriver",
+  ...defaults,
 }
 
 export default config

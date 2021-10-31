@@ -11,7 +11,8 @@
   "scripts": {
     "build": "run-p build:*",
     "build:es6": "tsc -p tsconfig.es6.json",
-    "build:cjs": "tsc -p tsconfig.es6.json"
+    "build:cjs": "tsc -p tsconfig.es6.json",
+    "test": "jest --passWithNoTests"
   },
   "devDependencies": {
     "@types/chromedriver": "^81.0.0",
