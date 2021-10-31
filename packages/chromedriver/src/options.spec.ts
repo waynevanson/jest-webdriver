@@ -3,8 +3,9 @@ import * as options from "./options"
 
 describe("port", () => {
   it("should return a port", () => {
-    const result = options.port.decode({ port: 1234 })
-    expect(result).toMatchObject(E.right(`--port="1234"`))
+    expect(options.port.decode({ port: 1234 })).toMatchObject(
+      E.right(`--port="1234"`)
+    )
   })
 })
 
