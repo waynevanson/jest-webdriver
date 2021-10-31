@@ -1,5 +1,11 @@
-import { option as O, readonlyArray as A } from "fp-ts"
-import { pipe } from "fp-ts/lib/function"
+import {
+  either as E,
+  option as O,
+  readonlyArray as A,
+  readerEither as RE,
+} from "fp-ts"
+import { flow, pipe } from "fp-ts/lib/function"
+import { Semigroup } from "fp-ts/lib/Semigroup"
 import * as d from "io-ts/Decoder"
 
 export type LogLevel = "ALL" | "DEBUG" | "INFO" | "WARNING" | "SEVERE" | "OFF"
@@ -8,10 +14,16 @@ export const asTrue: d.Decoder<true, true> = d.literal(true)
 export const asNumber: d.Decoder<number, number> = d.number
 export const asString: d.Decoder<string, string> = d.string
 
+const arrayFromOption = <A>(fa: O.Option<A>) =>
+  pipe(
+    fa,
+    O.fold(() => A.zero<A>(), A.of)
+  )
+
 export function fromPartialNullable<K extends string>(property: K) {
-  return <A>(
-    decoder: d.Decoder<A, A>
-  ): d.Decoder<Partial<Record<K, A>>, O.Option<A>> =>
+  return <I, A>(
+    decoder: d.Decoder<I, A>
+  ): d.Decoder<Partial<Record<K, I>>, O.Option<A>> =>
     pipe(
       d.fromPartial({ [property]: decoder }),
       d.map(O.fromNullableK((partial) => partial[property]))
@@ -41,19 +53,22 @@ const fromPartialFlag = <K extends string>(property: K) =>
 export const port = pipe(
   asNumber,
   fromPartialNullable("port"),
-  d.map(O.map((port) => `--port="${port}"`))
+  d.map(O.map((port) => `--port=${port}`)),
+  d.map(arrayFromOption)
 )
 
 export const adbPort = pipe(
   asNumber,
   fromPartialNullable("adbport"),
-  d.map(O.map((adbPort) => `--adb-port="${adbPort}"`))
+  d.map(O.map((adbPort) => `--adb-port=${adbPort}`)),
+  d.map(arrayFromOption)
 )
 
 export const logPath = pipe(
   asString,
   fromPartialNullable("logPath"),
-  d.map(O.map((logPath) => `--log-path="${logPath}"`))
+  d.map(O.map((logPath) => `--log-path="${logPath}"`)),
+  d.map(arrayFromOption)
 )
 
 // export const allowed = pipe(
@@ -106,17 +121,20 @@ export const logPath = pipe(
 
 const truthy = pipe(d.id<true>(), d.compose(d.literal(true)))
 
-export const logging = d.union(
-  pipe(
-    d.fromStruct({ silent: truthy }),
-    d.intersect(d.fromPartial({ verbose: d.id<false>() })),
-    d.map(() => `--silent`)
+export const logging = pipe(
+  d.union(
+    pipe(
+      d.fromStruct({ silent: truthy }),
+      d.intersect(d.fromPartial({ verbose: d.id<false>() })),
+      d.map(() => `--silent`)
+    ),
+    pipe(
+      d.fromStruct({ verbose: truthy }),
+      d.intersect(d.fromPartial({ silent: d.id<false>() })),
+      d.map(() => `--verbose`)
+    )
   ),
-  pipe(
-    d.fromStruct({ verbose: truthy }),
-    d.intersect(d.fromPartial({ silent: d.id<false>() })),
-    d.map(() => `--verbose`)
-  )
+  d.map(A.of)
 )
 
 // export const options = pipe(
@@ -133,12 +151,31 @@ export const logging = d.union(
 //   d.map(O.map(() => `--version`))
 // )
 
-// export const decoder = pipe(
-//   d.union(options, version),
-//   d.map(O.fold(() => A.zero<string>(), A.of))
-// )
+const aaa = intersectionSemigroup(A.getMonoid<string>())
 
-// export type ChromeDriverOptions = d.InputOf<typeof options>
+export const decoder = pipe(
+  logging,
+  fromPartialNullable("logging"),
+  d.map(O.sequence(A.Applicative)),
+  d.map(A.compact),
+  aaa(port)
+  // aaa(adbPort),
+  // aaa(logPath)
+)
+
+export function intersectionSemigroup<A>(semigroup: Semigroup<A>) {
+  return <IA>(fa: d.Decoder<IA, A>) =>
+    <IB>(fb: d.Decoder<IB, A>): d.Decoder<IA & IB, A> => ({
+      decode: pipe(
+        RE.Do as RE.ReaderEither<IA & IB, d.DecodeError, {}>,
+        RE.apSW("a", fa.decode),
+        RE.apSW("b", fb.decode),
+        RE.map(({ a, b }) => semigroup.concat(a, b))
+      ),
+    })
+}
+
+export type ChromeDriverOptions = d.InputOf<typeof decoder>
 
 // export interface _ChromeDriverOptions {
 //   port?: number

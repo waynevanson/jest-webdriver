@@ -12,7 +12,7 @@ export async function start(
   if (E.isLeft(parsed)) {
     throw new Error(d.draw(parsed.left))
   } else {
-    console.log(parsed)
+    //@ts-ignore
     return await cd.start(parsed.right, true)
   }
 }
