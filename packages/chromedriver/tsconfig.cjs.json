@@ -1,8 +1,8 @@
 {
-  "extends": "../../tsconfig.es6.json",
+  "extends": "../../tsconfig.cjs.json",
   "compilerOptions": {
     "rootDir": "src",
-    "outDir": "dist/es6"
+    "outDir": "dist/cjs"
   },
   "include": ["src/**/*.ts"],
   "exclude": ["src/**/*.spec.ts"]

@@ -1,10 +1,17 @@
 {
   "name": "chromedriver",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "dist/cjs/index.js",
+  "module": "dist/es6/index.js",
   "license": "MIT",
+  "types": "dist/cjs/index.d.ts",
+  "files": [
+    "dist"
+  ],
   "scripts": {
-    "build:es6": "tsc -p tsconfig.es6.json"
+    "build": "run-p build:*",
+    "build:es6": "tsc -p tsconfig.es6.json",
+    "build:cjs": "tsc -p tsconfig.es6.json"
   },
   "devDependencies": {
     "@types/chromedriver": "^81.0.0",
@@ -14,6 +21,7 @@
     "jest": "^27.3.1",
     "monocle-ts": "^2.3.11",
     "newtype-ts": "^0.3.4",
+    "npm-run-all": "^4.1.5",
     "ts-jest": "^27.0.7",
     "ts-node": "^10.4.0",
     "typescript": "^4.4.4"
