@@ -50,11 +50,11 @@ export const adbPort = pipe(
   d.map(O.map((adbPort) => `--adb-port="${adbPort}"`))
 )
 
-// export const logPath = pipe(
-//   asString,
-//   fromPartialNullable("logPath"),
-//   d.map(O.map((logPath) => `--log-path="${logPath}"`))
-// )
+export const logPath = pipe(
+  asString,
+  fromPartialNullable("logPath"),
+  d.map(O.map((logPath) => `--log-path="${logPath}"`))
+)
 
 // export const allowed = pipe(
 //   [

@@ -21,7 +21,19 @@ describe("abdPort", () => {
   })
 
   it("should return None when there is no port", () => {
-    expect(options.port.decode({})).toMatchObject(E.right(O.none))
+    expect(options.adbPort.decode({})).toMatchObject(E.right(O.none))
+  })
+})
+
+describe("logPath", () => {
+  it('should return --adb-port="<string>" when given an adb port', () => {
+    expect(options.logPath.decode({ logPath: "filepath" })).toMatchObject(
+      E.right(O.some(`--log-path="filepath"`))
+    )
+  })
+
+  it("should return None when there is no port", () => {
+    expect(options.logPath.decode({})).toMatchObject(E.right(O.none))
   })
 })
 
