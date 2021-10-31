@@ -14,6 +14,11 @@ describe("logs", () => {
     expect(result).toMatchObject(E.right(`--silent`))
   })
 
+  it("should return a log", () => {
+    const result = options.logging.decode({ verbose: true })
+    expect(result).toMatchObject(E.right(`--verbose`))
+  })
+
   it("should receive a type error", () => {
     //@ts-expect-error
     options.logging.decode({ silent: true, verbose: true })

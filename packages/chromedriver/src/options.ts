@@ -106,14 +106,16 @@ export const port = pipe(
 //   )
 // )
 
+const truthy = pipe(d.id<true>(), d.compose(d.literal(true)))
+
 export const logging = d.union(
   pipe(
-    d.fromStruct({ silent: d.id<true>() }),
+    d.fromStruct({ silent: truthy }),
     d.intersect(d.fromPartial({ verbose: d.id<false>() })),
     d.map(() => `--silent`)
   ),
   pipe(
-    d.fromStruct({ verbose: d.id<true>() }),
+    d.fromStruct({ verbose: truthy }),
     d.intersect(d.fromPartial({ silent: d.id<false>() })),
     d.map(() => `--verbose`)
   )
