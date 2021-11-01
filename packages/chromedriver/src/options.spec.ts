@@ -91,3 +91,15 @@ describe("logging", () => {
 // })
 
 // describe('intersectionToSemigroup')
+
+describe("allowed", () => {
+  it("should be return empty when there is no options", () => {
+    expect(options.allowed.decode({})).toMatchObject(E.right([]))
+  })
+
+  it("should return empty when the options are empty", () => {
+    expect(options.allowed.decode({ allowedIps: [] })).toMatchObject(
+      E.right([])
+    )
+  })
+})

@@ -71,25 +71,35 @@ export const logPath = pipe(
   d.map(arrayFromOption)
 )
 
-// export const allowed = pipe(
-//   [
-//     ["allowedIps", "--allowed-ips"],
-//     ["allowedOrigins", "--allowed-origins"],
-//   ] as const,
-//   A.reduce(
-//     pipe(
-//       d.id<Partial<Record<"allowedOrigins" | "allowedIps", Array<string>>>>()
-//     ),
-//     (b, [property, flag]) =>
-//       pipe(
-//         d.fromArray(asString),
-//         fromPartialNullable(property),
-//         d.map(O.map((alloweds) => alloweds.join(","))),
-//         d.map(O.map((alloweds) => `${flag}="${alloweds}"`)),
-//         d.intersect(b)
-//       )
-//   )
-// )
+type AllowedProperties = "allowedIps" | "allowedOrigins"
+
+const aaa = intersectionSemigroup(A.getMonoid<string>())
+
+export const allowed = pipe(
+  [
+    ["allowedIps", "--allowed-ips"],
+    ["allowedOrigins", "--allowed-origins"],
+  ] as Array<[AllowedProperties, string]>,
+  A.reduce(
+    pipe(
+      d.id<Partial<Record<AllowedProperties, Array<string>>>>(),
+      d.map(() => A.zero<string>())
+    ),
+    (b, [property, flag]) =>
+      pipe(
+        d.fromArray(asString),
+        fromPartialNullable(property),
+        d.map(O.chain(O.fromPredicate(A.isNonEmpty))),
+        d.map(
+          O.traverse(A.Applicative)((alloweds) =>
+            A.of(`${flag}="${alloweds.join(",")}"`)
+          )
+        ),
+        d.map(A.compact),
+        aaa(b)
+      )
+  )
+)
 
 // const flags = pipe(
 //   [
@@ -151,14 +161,13 @@ export const logging = pipe(
 //   d.map(O.map(() => `--version`))
 // )
 
-const aaa = intersectionSemigroup(A.getMonoid<string>())
-
 export const decoder = pipe(
   logging,
   fromPartialNullable("logging"),
   d.map(O.sequence(A.Applicative)),
   d.map(A.compact),
-  aaa(port)
+  aaa(port),
+  aaa(allowed)
   // aaa(adbPort),
   // aaa(logPath)
 )
