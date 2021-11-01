@@ -4,7 +4,7 @@
   "license": "MIT",
   "private": true,
   "scripts": {
-    "jest": "jest --passWithNoTests"
+    "test": "yarn jest --passWithNoTests"
   },
   "workspaces": [
     "packages/*"
