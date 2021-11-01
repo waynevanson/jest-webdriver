@@ -4,8 +4,7 @@
   "description": "webdriver integration for jest",
   "main": "dist/index.js",
   "scripts": {
-    "build": "echo",
-    "jest": "jest -c config/jest/jest.config.ts"
+    "build": "echo"
   },
   "author": "Wayne Van Son",
   "license": "MIT",
