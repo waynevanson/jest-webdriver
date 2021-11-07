@@ -8,6 +8,9 @@ import { flow, pipe } from "fp-ts/lib/function"
 import { Semigroup } from "fp-ts/lib/Semigroup"
 import * as d from "io-ts/Decoder"
 
+export type Args = ReadonlyArray<string>
+export type DecoderCLI<A> = d.Decoder<A, Args>
+
 export type LogLevel = "ALL" | "DEBUG" | "INFO" | "WARNING" | "SEVERE" | "OFF"
 
 export const asTrue: d.Decoder<true, true> = d.literal(true)
