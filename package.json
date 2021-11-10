@@ -4,10 +4,14 @@
   "license": "MIT",
   "private": true,
   "scripts": {
-    "test": "yarn jest --passWithNoTests"
+    "test": "yarn jest --passWithNoTests",
+    "build": "ts-node scripts/build.ts",
+    "prepublishOnly": "yarn build"
   },
   "workspaces": [
-    "packages/*"
+    "packages/*",
+    "!packages/common",
+    "!packages/webdriver"
   ],
   "devDependencies": {
     "@types/glob": "^7.2.0",

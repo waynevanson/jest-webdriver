@@ -1,5 +1,5 @@
 {
-  "name": "chromedriver",
+  "name": "@jest-webdriver/chromedriver",
   "version": "1.0.0",
   "main": "dist/cjs/index.js",
   "module": "dist/es6/index.js",

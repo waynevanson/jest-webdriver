@@ -3,25 +3,25 @@ import {
   option as O,
   readonlyArray as A,
   readerEither as RE,
-} from "fp-ts"
-import { flow, pipe } from "fp-ts/lib/function"
-import { Semigroup } from "fp-ts/lib/Semigroup"
-import * as d from "io-ts/Decoder"
+} from "fp-ts";
+import { flow, pipe } from "fp-ts/lib/function";
+import { Semigroup } from "fp-ts/lib/Semigroup";
+import * as d from "io-ts/Decoder";
 
-export type Args = ReadonlyArray<string>
-export type DecoderCLI<A> = d.Decoder<A, Args>
+export type Args = ReadonlyArray<string>;
+export type DecoderCLI<A> = d.Decoder<A, Args>;
 
-export type LogLevel = "ALL" | "DEBUG" | "INFO" | "WARNING" | "SEVERE" | "OFF"
+export type LogLevel = "ALL" | "DEBUG" | "INFO" | "WARNING" | "SEVERE" | "OFF";
 
-export const asTrue: d.Decoder<true, true> = d.literal(true)
-export const asNumber: d.Decoder<number, number> = d.number
-export const asString: d.Decoder<string, string> = d.string
+export const asTrue: d.Decoder<true, true> = d.literal(true);
+export const asNumber: d.Decoder<number, number> = d.number;
+export const asString: d.Decoder<string, string> = d.string;
 
 const arrayFromOption = <A>(fa: O.Option<A>) =>
   pipe(
     fa,
     O.fold(() => A.zero<A>(), A.of)
-  )
+  );
 
 export function fromPartialNullable<K extends string>(property: K) {
   return <I, A>(
@@ -30,11 +30,11 @@ export function fromPartialNullable<K extends string>(property: K) {
     pipe(
       d.fromPartial({ [property]: decoder }),
       d.map(O.fromNullableK((partial) => partial[property]))
-    )
+    );
 }
 
 const fromPartialFlag = <K extends string>(property: K) =>
-  fromPartialNullable(property)(asTrue)
+  fromPartialNullable(property)(asTrue);
 
 // export const logLevel: d.Decoder<
 //   Record<"logLevel", LogLevel>,
@@ -58,25 +58,25 @@ export const port = pipe(
   fromPartialNullable("port"),
   d.map(O.map((port) => `--port=${port}`)),
   d.map(arrayFromOption)
-)
+);
 
 export const adbPort = pipe(
   asNumber,
   fromPartialNullable("adbport"),
   d.map(O.map((adbPort) => `--adb-port=${adbPort}`)),
   d.map(arrayFromOption)
-)
+);
 
 export const logPath = pipe(
   asString,
   fromPartialNullable("logPath"),
   d.map(O.map((logPath) => `--log-path="${logPath}"`)),
   d.map(arrayFromOption)
-)
+);
 
-type AllowedProperties = "allowedIps" | "allowedOrigins"
+type AllowedProperties = "allowedIps" | "allowedOrigins";
 
-const aaa = intersectionSemigroup(A.getMonoid<string>())
+const intersect = intersectionSemigroup(A.getMonoid<string>());
 
 export const allowed = pipe(
   [
@@ -99,40 +99,40 @@ export const allowed = pipe(
           )
         ),
         d.map(A.compact),
-        aaa(b)
+        intersect(b)
       )
   )
-)
+);
 
-// const flags = pipe(
-//   [
-//     ["appendLog", "--append-log"],
-//     ["replayable", "--replayable"],
-//     ["readableTimestamp", "readable-timestampe"],
-//     ["disableDevShmUsage", "--disable-dev-shm-usage"],
-//   ] as const,
-//   A.reduce(
-//     d.id<
-//       Partial<
-//         Record<
-//           | "appendLog"
-//           | "replayable"
-//           | "readableTimestamp"
-//           | "disableDevShmUsage",
-//           true
-//         >
-//       >
-//     >(),
-//     (b, [property, flag]) =>
-//       pipe(
-//         fromPartialFlag(property),
-//         d.map(O.map(() => flag as string)),
-//         d.intersect(b)
-//       )
-//   )
-// )
+export type BooleanFlags =
+  | "appendLog"
+  | "replayable"
+  | "readableTimestamp"
+  | "disableDevShmUsage";
 
-const truthy = pipe(d.id<true>(), d.compose(d.literal(true)))
+const flags = pipe(
+  [
+    ["appendLog", "--append-log"],
+    ["replayable", "--replayable"],
+    ["readableTimestamp", "readable-timestampe"],
+    ["disableDevShmUsage", "--disable-dev-shm-usage"],
+  ] as Array<[BooleanFlags, string]>,
+  A.reduce(
+    pipe(
+      d.id<Partial<Record<BooleanFlags, true>>>(),
+      d.map(() => A.zero<string>())
+    ),
+    (b, [property, flag]) =>
+      pipe(
+        fromPartialFlag(property),
+        d.map(O.map(() => flag)),
+        d.map(arrayFromOption),
+        intersect(b)
+      )
+  )
+);
+
+const truthy = pipe(d.id<true>(), d.compose(d.literal(true)));
 
 export const logging = pipe(
   d.union(
@@ -148,32 +148,25 @@ export const logging = pipe(
     )
   ),
   d.map(A.of)
-)
+);
 
-// export const options = pipe(
-//   logging,
-//   d.intersect(port),
-//   d.intersect(adbPort),
-//   d.intersect(logPath)
-//   // d.intersect(flags),
-//   // d.intersect(allowed),
-// )
-
-// const version = pipe(
-//   fromPartialFlag("version"),
-//   d.map(O.map(() => `--version`))
-// )
-
-export const decoder = pipe(
+export const options = pipe(
   logging,
   fromPartialNullable("logging"),
   d.map(O.sequence(A.Applicative)),
   d.map(A.compact),
-  aaa(port),
-  aaa(allowed)
-  // aaa(adbPort),
-  // aaa(logPath)
-)
+  intersect(port),
+  intersect(allowed),
+  intersect(adbPort),
+  intersect(logPath)
+);
+
+export const version = pipe(
+  d.fromStruct({ version: asTrue }),
+  d.map(() => A.of(`--version`))
+);
+
+export const ChromeDriverOptions = d.union(options, version);
 
 export function intersectionSemigroup<A>(semigroup: Semigroup<A>) {
   return <IA>(fa: d.Decoder<IA, A>) =>
@@ -184,10 +177,10 @@ export function intersectionSemigroup<A>(semigroup: Semigroup<A>) {
         RE.apSW("b", fb.decode),
         RE.map(({ a, b }) => semigroup.concat(a, b))
       ),
-    })
+    });
 }
 
-export type ChromeDriverOptions = d.InputOf<typeof decoder>
+export type ChromeDriverOptions = d.InputOf<typeof ChromeDriverOptions>;
 
 // export interface _ChromeDriverOptions {
 //   port?: number
