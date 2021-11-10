@@ -5,6 +5,7 @@
   "module": "dist/es6/index.js",
   "license": "MIT",
   "types": "dist/cjs/index.d.ts",
+  "private": false,
   "files": [
     "dist"
   ],
